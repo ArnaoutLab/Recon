@@ -2052,7 +2052,7 @@ else: # This option is for making MLE fits of data
         #
         # Enforce threshold on clones to be explicitly fitted:
         #
-        for clone_size in observed_clone_size_distribution:
+        for clone_size in observed_clone_size_distribution.keys():
             if (clone_size > threshold) or (observed_clone_size_distribution[clone_size] == 0):
                 del observed_clone_size_distribution[clone_size]
         #
