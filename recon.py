@@ -936,7 +936,7 @@ def read_sample_fit(MLE_filename, observed_threshold = 1000, return_threshold = 
             in_best_fit = False
             in_start_params = True
             for line in MLE_file:
-                if 'threshold' in line:
+                if ('threshold' in line) or ('upper_limit' in line):
                     observed_threshold = int(line.split(' = ')[1])
                 if in_start_params:
                     if line == '\n':
@@ -944,7 +944,24 @@ def read_sample_fit(MLE_filename, observed_threshold = 1000, return_threshold = 
                     else:
                         if line[0] != '#':
                             line = line.split('#')[0]
-                            globals().update({line.split('=')[0].strip() : ast.literal_eval(line.split('=')[1].strip())})
+                            if line.split('=')[0].strip() == 'parent_population_size':
+                                parent_population_size = ast.literal_eval(line.split('=')[1].strip())
+                            elif line.split('=')[0].strip() == 'total_clones':
+                                total_clones = ast.literal_eval(line.split('=')[1].strip())
+                            elif line.split('=')[0].strip() == 'sample_size':
+                                sample_size= ast.literal_eval(line.split('=')[1].strip())
+                            elif line.split('=')[0].strip() == 'weights':
+                                weights = ast.literal_eval(line.split('=')[1].strip())
+                            elif line.split('=')[0].strip() == 'means':
+                                means= ast.literal_eval(line.split('=')[1].strip())                            
+                            elif line.split('=')[0].strip() == 'observed_clone_size_distribution':
+                                observed_clone_size_distribution= ast.literal_eval(line.split('=')[1].strip())                            
+                            elif line.split('=')[0].strip() == 'total_observed_clones':
+                                total_observed_clones = ast.literal_eval(line.split('=')[1].strip())                            
+                            elif line.split('=')[0].strip() == 'initial_scale_factors':
+                                initial_scale_factors = ast.literal_eval(line.split('=')[1].strip())                            
+                            elif line.split('=')[0].strip() == 'test_weights':
+                                test_weights = ast.literal_eval(line.split('=')[1].strip())
                 elif line[0] == '=':
                     in_best_fit = not in_best_fit
                 elif in_best_fit:
