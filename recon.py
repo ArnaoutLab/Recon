@@ -375,8 +375,150 @@
     
     10. License
     ----------
+    PLEASE READ THIS AGREEMENT.  ANY USE OF THE SOFTWARE OR ANY OF THE SOURCE 
+    CODE, OR REPRODUCTION OR MODIFICATION OF THE SOFTWARE OR SOURCE CODE 
+    INDICATES YOUR ACCEPTANCE OF THE TERMS OF THIS AGREEMENT.  IF YOU DO NOT 
+    AGREE, DO NOT USE, COPY, OR MODIFY THE SOFTWARE.  YOU MAY PRINT THIS 
+    AGREEMENT FOR YOUR RECORDS.
     
-    TBD
+    THIS SOURCE CODE SOFTWARE LICENSE (the “Agreement”) is between Beth Israel 
+    Deaconess Medical Center, Inc. (“BIDMC”) and you (“Licensee”) as of the 
+    date that you accept these terms by clicking “Agree” below (“Effective 
+    Date”). You agree as follows:
+    
+    1. Definitions
+    (a) “Derivative” means any translation, adaptation, alteration, 
+    transformation, or modification, including
+    inclusion as part of another software program or product, of the Software.
+    (b) “Embedded Terms” means any terms and conditions of this Agreement 
+    embedded in the Source Code.
+    (c) “Intellectual Property Rights” means all patents, patent rights, patent 
+    applications, copyrights, copyright registrations, trade secrets, 
+    trademarks and service marks (including, where applicable, all derivative 
+    works of the foregoing).
+    (d) “Object Code” means computer programs assembled, compiled, or converted 
+    to magnetic or electronic binary form, which are readable and useable by 
+    computer equipment.
+    (e) “Software” means the software program known as, “Recon: Reconstruction 
+    of Estimated Communities from Observed Numbers”, including its Object Code 
+    and Source Code.
+    (f) “Source Code” means computer programs written in higher-level 
+    programming languages and readable by humans.
+    
+    2. License. Subject to the terms and conditions of this Agreement, BIDMC 
+    grants to Licensee a no cost, personal, non-exclusive, non-transferable, 
+    limited license (without the right to sublicense) to download the Software, 
+    and to copy, make Derivatives and use the Software for Licensee’s internal 
+    academic and research purposes during the term of this Agreement. Any 
+    rights not expressly granted in this Agreement are expressly reserved.
+    (a) Derivatives. Licensee agrees that from time to time, or upon request by 
+    BIDMC, Licensee will deliver all Derivatives to BIDMC and hereby grants to 
+    BIDMC a no cost, personal, perpetual, irrevocable, non-exclusive, non- 
+    transferable, limited license (with the right to sublicense) to download 
+    the Derivatives, to copy, distribute and make Derivatives of the 
+    Derivative, and to use the Derivative for BIDMC’s internal academic and 
+    research purposes.
+    (b) Commercial Restrictions on Use of the Software. The following are 
+    prohibited without obtaining a commercial license from the Office of 
+    Technology Ventures at BIDMC:
+    (i) Using the Software or any Derivative to produce any commercial product 
+    or to provide any commercial service.
+    (ii) Charging a fee for use of the Software or any Derivative for any 
+    purpose.
+    (iii) Distributing the Software or any Derivative to any other party, 
+    unless the distribution is made subject to this Agreement and the recipient 
+    “Agrees” to this Agreement through the website: 
+    https://github.com/ArnaoutLab/Recon
+    (c) Patents. BIDMC does not grant through this Agreement any licenses under 
+    any BIDMC patent or patent application.
+    (d) Intellectual Property Rights Notices; Embedded Terms. Licensee is 
+    prohibited from removing or altering any of the Intellectual Property 
+    Rights notice(s) and any Embedded Terms embedded in the Software. Licensee 
+    must reproduce the unaltered Intellectual Property Rights notice(s) and the 
+    Embedded Terms in any full or partial copies of the Source Code that 
+    Licensee makes.
+    (e) Export Compliance. Licensee acknowledges and agrees that U.S. export 
+    control laws and other applicable export and import laws govern download 
+    and use of the Software. Licensee will neither export nor re-export, 
+    directly or indirectly, the Software in violation of U.S. laws or use the 
+    Software for any purpose prohibited by U.S. laws.
+    
+    3. Disclaimer of Warranties; Limited Liability.
+    (a) Disclaimer of Warranties. THE SOFTWARE IS DELIVERED “AS IS.” BIDMC 
+    MAKES NO OTHER WARRANTIES WHATSOEVER, EXPRESS OR IMPLIED, WITH REGARD TO 
+    THE SOFTWARE PROVIDED UNDER THIS AGREEMENT, IN WHOLE OR IN PART. BIDMC 
+    EXPLICITLY DISCLAIMS ALL WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY 
+    AND OF FITNESS FOR A PARTICULAR PURPOSE. BIDMC EXPRESSLY DOES NOT WARRANT 
+    THAT THE SOFTWARE, IN WHOLE OR IN PART, WILL BE ERROR FREE, OPERATE WITHOUT 
+    INTERRUPTION OR MEET LICENSEE’S REQUIREMENTS.
+    (b) Limited Liability; No Consequential Damages. THE TOTAL LIABILITY OF 
+    BIDMC, ITS AFFILIATES, TRUSTEES, OFFICERS, AND EMPLOYEES IN CONNECTION WITH 
+    THE SOFTWARE, OR ANY OTHER MATTER RELATING TO THIS AGREEMENT (WHATEVER THE 
+    BASIS FOR THE CAUSE OF ACTION) WILL NOT EXCEED IN THE AGGREGATE OVER THE 
+    TERM OF THE AGREEMENT 00. IN NO EVENT WILL BIDMC , ITS AFFILIATES, 
+    TRUSTEES, OFFICERS, AND EMPLOYEES BE LIABLE FOR ANY SPECIAL, INCIDENTAL, 
+    INDIRECT OR CONSEQUENTIAL DAMAGES OR DAMAGES FOR LOST PROFITS, WHETHER 
+    BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), PRODUCT 
+    LIABILITY, OR OTHERWISE.
+    (c) Failure of Essential Purpose. THE LIMITATIONS SPECIFIED IN THIS SECTION 
+    WILL SURVIVE AND APPLY EVEN IF ANY REMEDY SPECIFIED IN THIS AGREEMENT IS 
+    FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.
+    
+    4. Termination.
+    (a) Right of Termination. BIDMC may, for any reason or no reason, upon 
+    written notice sent to the contact information Licensee provides upon 
+    clicking “agree”, immediately terminate this Agreement. This Agreement will 
+    automatically terminate upon any breach by Licensee of any of the terms or 
+    conditions of this Agreement. BIDMC shall not be liable to Licensee or any 
+    third party for any termination of this Agreement.
+    (b) Licensee Derivatives. Upon termination or expiration of this Agreement, 
+    Licensee shall promptly deliver to BIDMC the Source Code and Object Code of 
+    Licensee’s Derivatives and shall immediately cease all use of the Software.
+    
+    5. Non-use of Name. Without BIDMC’s prior written consent, Licensee will 
+    not identify BIDMC in any promotional statement, or otherwise use the name 
+    of any BIDMC employee or any trademark, service mark, trade name, or symbol 
+    of BIDMC.
+    
+    6. Assignment. This Agreement and the rights and obligations hereunder are 
+    personal to Licensee, and may not be assigned or otherwise transferred, in 
+    whole or in part, without BIDMC’s prior written consent. Any attempt to do 
+    otherwise shall be void and of no effect. BIDMC has the right to assign 
+    this Agreement or any rights or obligations hereunder to any third party. 
+    This Agreement shall be binding upon, and inure to the benefit of, the 
+    successors, representatives and permitted assigns of the parties.
+    
+    7. Choice of Law. This Agreement and all disputes and controversies related 
+    to this Agreement, are governed by and construed under the laws of the 
+    Commonwealth of Massachusetts, without regard to the choice of law 
+    provisions. The state and federal courts located in the Commonwealth of 
+    Massachusetts are the exclusive forum for any action between the parties 
+    relating to this Agreement. Licensee submits to the jurisdiction of such 
+    courts, and waives any claim that such a court lacks jurisdiction over 
+    Licensee or constitutes an inconvenient or improper forum. The United 
+    Nations Convention on the International Sale of Goods (CISG) shall not 
+    apply to the interpretation or enforcement of this Agreement.
+    
+    8. English Language. This Agreement is originally written in the English 
+    language and the English language version shall control over any 
+    translations.
+    
+    9. Entire Agreement. This Agreement constitutes the entire agreement, and 
+    supersedes all prior and contemporaneous agreements or understandings (oral 
+    or written), between the parties about the subject matter of this 
+    Agreement. Licensee has no right to waive or modify any of this Agreement 
+    without the written consent of BIDMC. No waiver, consent or modification of 
+    this Agreement shall bind either party unless in writing and signed by the 
+    party granting the waiver. The failure of either party to enforce its 
+    rights under this Agreement at any time for any period will not be 
+    construed as a waiver of such rights. If any provision of this Agreement is 
+    determined to be illegal or unenforceable, that provision will be limited 
+    or eliminated to the minimum extent necessary so that this Agreement will 
+    otherwise remain in full force and effect and enforceable.
+    
+    Last Updated June 23, 2015
+    (c) 2015 Beth Israel Deaconess Medical Hospital, Inc. All rights reserved.
+
 """
 
 from sys import argv, exit
