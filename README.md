@@ -16,8 +16,9 @@ Ramy Arnaout, MD, DPhil
 5. Diversity measures
 6. Error bars
 7. Power calculations
-8. Contact information
-9. License
+8. Resampling a fit
+9. Contact information
+10. License
 
 
 
