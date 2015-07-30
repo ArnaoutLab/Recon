@@ -377,7 +377,7 @@ PLEASE READ THIS AGREEMENT.  ANY USE OF THE SOFTWARE OR ANY OF THE SOURCE CODE, 
 
 THIS SOURCE CODE SOFTWARE LICENSE (the “Agreement”) is between Beth Israel Deaconess Medical Center, Inc. (“BIDMC”) and you (“Licensee”) as of the date that you accept these terms by clicking “Agree” below (“Effective Date”). You agree as follows:
 
-1 Definitions.
+1. Definitions
 (a) “Derivative” means any translation, adaptation, alteration, transformation, or modification, including
 inclusion as part of another software program or product, of the Software.
 (b) “Embedded Terms” means any terms and conditions of this Agreement embedded in the Source Code.
