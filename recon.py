@@ -1657,7 +1657,7 @@ def limits_entropy(weights,means,observed_clone_size_distribution,sample_size, o
     return lower_limit_entropy, upper_limit_entropy
 
 
-def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filename, list_of_filenames):
+def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filename, list_of_filenames, qs="0.,1.,2.,inf"):
     #
     with open(precomputed_error_bar_file,'rU') as f:
         for line in f:
@@ -1668,13 +1668,29 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
                 print expected_variable, 'not in precomputed error bar file!'
                 exit()
     #
+    # format qs
+    qs = split(qs, ",")
+    qs = map(strip, qs)
+    qs_as_floats = []
+    for q in qs:
+        if "inf" in q: qs_as_floats.append(float('inf'))
+        else: 
+            try: qs_as_floats.append(float(q))
+            except: 
+                print "One or more of the qs appears to not be a number (the -qs option). qs must be either numbers or 'inf', separated by commas. Please check your qs and try again."
+                exit()
+    qs = qs_as_floats
+    #
     estimated_n0 = {}
     fitted_params = {}
     observed_clone_size_distributions = {}
+    """
     obs0D = {}
     obs1D = {}
     obs2D = {}
     obsinfD = {}
+    """
+    obsqDs = {}
     #
     observed_threshold = None
     #
@@ -1738,10 +1754,16 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
             norm_fracs = float(sum(fracs))
             fracs = [frac / norm_fracs for frac in fracs]
             #
+            for q in qs:
+                if q != 'inf': obsqDs[q][data_filename] = diversity_q_fractions_zeros(fracs,q)
+                else: obsqDs[q][data_filename] = 1.0/max(fracs)
+            #
+            """
             obs0D[data_filename] = diversity_q_fractions_zeros(fracs,0.)
             obs1D[data_filename] = diversity_q_fractions_zeros(fracs,1.)
             obs2D[data_filename] = diversity_q_fractions_zeros(fracs,2.)
             obsinfD[data_filename] = 1.0/max(fracs)
+            """
             #
     with open(D_number_output_filename,'a') as D_number_file_out:
         #
@@ -1754,14 +1776,73 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
         D_number_file_out.write('# observed_threshold = '+str(observed_threshold)+'\n')
         D_number_file_out.write('# precomputed_error_bar_file = '+precomputed_error_bar_file+'\n')
         #
+        """
         D_number_file_out.write('Sample name\tobs0D\tobs entropy\tobs2D\tobsinfD\tMLE0D\tMLE entropy\tMLE2D\tMLEinfD\tLower 0D\tUpper 0D\tLower MLE entropy\tUpper MLE entropy\n')
-        #
+        """
+        header_columns = ["Sample name"]
+        for q in qs: 
+            header_columns.append("obs" + str(q) + "D") # observed qDs
+            if q == 1.: header_columns.append("obs entropy")
+        for q in qs: 
+            header_columns.append("MLE" + str(q) + "D") # reconstructed qDs
+            if q == 1.: header_columns.append("MLE entropy")
+        if 0. in qs:
+            header_columns.append("Lower 0D")
+            header_columns.append("Upper 0D")
+        if 1. in qs:
+            header_columns.append("Lower 1D")
+            header_columns.append("Upper 1D")
+            header_columns.append("Lower entropy")
+            header_columns.append("Upper entropy")
+        header_line = "\t".join(header_columns)
+        D_number_file_out.write(header_line + "\n")
+        # Now write results
         for filename in sorted( list( set(observed_clone_size_distributions.keys()) & set(estimated_n0.keys()) ) ):
             #
             if verbose: print filename
             #
             weights = fitted_params[filename][:len(fitted_params[filename])/2]
             means = fitted_params[filename][len(fitted_params[filename])/2:]
+            #
+            outline_items = []
+            outline_items(filename) # sample name
+            for q in qs: # observed qDs
+                outline_items.append(obs_qDs[q][filename])
+                if q == 1.: outline_items.append(log(obs_qDs[q][filename])/log(2.0)) # entropy
+            for q in qs: # reconstructed qDs
+                reconstructed_qD = D_number_from_parameters_with_observed4(weights, means, observed_clone_size_distributions[filename], observed_threshold, q)
+                outline_items.append(reconstructed_qD)
+                if q == 1.: outline_items.append(log(reconstructed_qD)/log(2.0)) # entropy
+                # get lower and upper limits for q=0 and q=1. Note we append these later (we should generalize this for other qs -RA)
+                if q == 0.:
+                    try: 
+                        lower_limit_0D, upper_limit_0D = error_bar_on_fit_qD(sample_size, reconstructed_qD, error_envelope_x_vals_0, error_envelope_y_vals_0)
+                    except: 
+                        lower_limit_0D, upper_limit_0D = "Too few clones"
+                if q == 1.:
+                    try: 
+                        lower_limit_entropy, upper_limit_entropy = limits_entropy(weights, means, observed_clone_size_distributions[filename], sample_size, observed_threshold)
+                        lower_limit_1D = 2**lower_limit_entropy
+                        upper_limit_1D = 2**upper_limit_entropy
+                        lower_limit_entropy = log(reconstructed_qD) + lower_limit_entropy) / log(2.0)
+                        upper_limit_entropy = log(reconstructed_qD) + lower_limit_entropy) / log(2.0)
+                    except: 
+                        lower_limit_entropy, upper_limit_entropy = "Too few clones"
+                        lower_limit_1D, upper_limit_1D = "Too few clones"
+            # append any limits
+            if 0. in qs:
+                outline_items.append(lower_limit_0D)
+                outline_items.append(upper_limit_0D)
+            if 1. in qs:
+                outline_items.append(lower_limit_1D)
+                outline_items.append(upper_limit_1D)
+                outline_items.append(lower_limit_entropy)
+                outline_items.append(upper_limit_entropy)                
+            #
+            outline_items = map(str, outline_items)
+            outline = "\t".join(outline_items)
+            D_number_file_out.write(outline + '\n')
+            """
             #
             D_number_file_out.write(filename+'\t') # sample name
             #
@@ -1812,6 +1893,7 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
                 D_number_file_out.write('Too few clones\tToo few clones\t')
             #
             D_number_file_out.write('\n')
+            """
 
 
 def parse_dict(d_in):
@@ -2132,7 +2214,8 @@ parser.add_argument('-v','--verbose',  action='store_true', help='Print verbose 
 parser.add_argument('-T','--make_table_of_D_numbers',  action='store_true', help='Output a table of reconstructed D numbers with error bars from input fit files.')
 parser.add_argument('-p','--make_table_power',  action='store_true', help='Output a table of cells required to see fold difference.')
 parser.add_argument('-b','--precomputed_error_bar_file', type=str, help='File name for precomputed error bars.')
-parser.add_argument('-q','--q', type=str, help='Hill number parameter to use when making table for power calculations ')
+parser.add_argument('-q','--q', type=str, help='Hill number parameter to use when making table for power calculations')
+parser.add_argument('-Q', '--qs', type=str, help='comma-separated list of Hill numbers for diversity-measure calculations')
 parser.add_argument('-n','--number_of_error_bars', default=2.0, type=float, help='Mapping between gold-standard error bar fits and standard deviations in power calculation')
 parser.add_argument('-m','--min_number_of_doublets', default=100, type=int, help='')
 parser.add_argument('-f','--fraction_small_clones', default=0.1, type=float, help='')
