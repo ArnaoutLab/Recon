@@ -524,7 +524,7 @@
 
 from sys import argv, exit
 from scipy.stats import poisson
-from string import split, join
+from string import split, join, strip
 from collections import defaultdict
 from os.path import expanduser, isfile, isdir
 from os import listdir
@@ -1400,7 +1400,7 @@ def error_bar_devs_q1(samples, q):
     return error_envelope_x_vals_q, error_envelope_y_vals_q, abs_deviations
 
 
-def make_error_bar_file(error_bar_fits_directory, precomputed_error_bar_file):
+def make_error_bar_file(error_bar_fits_directory, precomputed_error_bar_file, qs="0.,1.,2.,inf"):
     #
     if isfile(precomputed_error_bar_file):
         print 'Precomputed error bar file', precomputed_error_bar_file,'already exists!'
@@ -1431,6 +1431,22 @@ def make_error_bar_file(error_bar_fits_directory, precomputed_error_bar_file):
     z = []
     for MLE_filename in fitted_samples:
         z.append(fitted_samples[MLE_filename])
+
+    error_envelope_info_hash = {} # error_envelope_info_hash[q] = error_envelope_x_vals_q, error_envelope_y_vals_q, abs_deviations_q
+    qs = format_qs(qs)
+    for q_value in qs:
+        print datetime.now().strftime("%c")
+        print "Calculating error bar profiles for %.0fD..." % q_value
+        error_envelope_info_hash[q] = error_bar_devs_q1(z, q=q_value)
+        
+    with open(precomputed_error_bar_file,'w') as f:
+        #
+        for q_value in qs:
+            error_envelope_x_vals, error_envelope_y_vals, abs_deviations = error_envelope_info_hash[q]
+            f.write('error_envelope_x_vals_%.0f = ' % q_value + str(error_envelope_x_vals) + '\n')
+            f.write('error_envelope_y_vals_%.0f = ' % q_value + str(error_envelope_y_vals) + '\n')
+            f.write('abs_deviations_%.0f = ' % q_value + str(abs_deviations) + '\n')
+    """
     #
     # The keys of error_envelope_x_vals and error_envelope_x_vals are the true 0D of the samples
     # which we are using in our error bar fits.
@@ -1463,7 +1479,7 @@ def make_error_bar_file(error_bar_fits_directory, precomputed_error_bar_file):
     #
     error_envelope_x_vals_inf, error_envelope_y_vals_inf, abs_deviations_inf = error_bar_devs_q1(z, q=float('inf'))
     #
-    # Once these variables have been make they need to be saved.
+    # Once these variables have been made they need to be saved.
     #
     with open(precomputed_error_bar_file,'w') as f:
         #
@@ -1482,6 +1498,7 @@ def make_error_bar_file(error_bar_fits_directory, precomputed_error_bar_file):
         f.write('error_envelope_x_vals_inf = '+str(error_envelope_x_vals_inf)+'\n')
         f.write('error_envelope_y_vals_inf = '+str(error_envelope_y_vals_inf)+'\n')
         f.write('abs_deviations_inf = '+str(abs_deviations_inf)+'\n')
+    """
     #
     return
 
@@ -1656,6 +1673,21 @@ def limits_entropy(weights,means,observed_clone_size_distribution,sample_size, o
     #
     return lower_limit_entropy, upper_limit_entropy
 
+def format_qs(qs):
+    # 
+    qs = split(qs, ",")
+    qs = map(strip, qs)
+    qs_as_floats = []
+    for q in qs:
+        if "inf" in q: qs_as_floats.append(float('inf'))
+        else: 
+            try: qs_as_floats.append(float(q))
+            except: 
+                print "One or more of the qs appears to not be a number (the -qs option). qs must be either numbers or 'inf', separated by commas. Please check your qs and try again."
+                exit()
+    qs = qs_as_floats
+    return qs
+
 
 def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filename, list_of_filenames, qs="0.,1.,2.,inf"):
     #
@@ -1669,17 +1701,7 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
                 exit()
     #
     # format qs
-    qs = split(qs, ",")
-    qs = map(strip, qs)
-    qs_as_floats = []
-    for q in qs:
-        if "inf" in q: qs_as_floats.append(float('inf'))
-        else: 
-            try: qs_as_floats.append(float(q))
-            except: 
-                print "One or more of the qs appears to not be a number (the -qs option). qs must be either numbers or 'inf', separated by commas. Please check your qs and try again."
-                exit()
-    qs = qs_as_floats
+    qs = format_qs(qs)
     #
     estimated_n0 = {}
     fitted_params = {}
