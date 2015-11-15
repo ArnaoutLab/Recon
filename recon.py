@@ -1705,13 +1705,14 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
     # format qs
     qs = format_qs(qs)
     #
+    # get parameters
     estimated_n0 = {}
     fitted_params = {}
     observed_clone_size_distributions = {}
     sample_sizes = {}
     obs_qDs = defaultdict( lambda: defaultdict(str) )
     #
-    observed_threshold = None
+    observed_threshold = 30 # None
     #
     for data_filename in list_of_filenames:
         #
@@ -1738,7 +1739,7 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
                     sample_size = sum(key*value for key, value in observed_clone_size_distribution.iteritems())
                     sample_sizes[data_filename] = sample_size
                 #
-                if line[:9] == 'threshold':
+                if line.startswith('threshold'):
                     threshold_in_file = int(line.strip().split('=')[1])
                     if not observed_threshold:
                         observed_threshold = threshold_in_file
@@ -1779,12 +1780,6 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
                 if q != 'inf': obs_qDs[q][data_filename] = diversity_q_fractions_zeros(fracs,q)
                 else: obs_qDs[q][data_filename] = 1.0/max(fracs)
             #
-            """
-            obs0D[data_filename] = diversity_q_fractions_zeros(fracs,0.)
-            obs1D[data_filename] = diversity_q_fractions_zeros(fracs,1.)
-            obs2D[data_filename] = diversity_q_fractions_zeros(fracs,2.)
-            obsinfD[data_filename] = 1.0/max(fracs)
-            """
             #
     with open(D_number_output_filename,'a') as D_number_file_out:
         #
@@ -1849,8 +1844,8 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
                         lower_limit_entropy = (log(reconstructed_qD) + lower_limit_entropy) / log(2.0)
                         upper_limit_entropy = (log(reconstructed_qD) + lower_limit_entropy) / log(2.0)
                     except: 
-                        lower_limit_entropy, upper_limit_entropy = "Too few clones"
-                        lower_limit_1D, upper_limit_1D = "Too few clones"
+                        lower_limit_entropy, upper_limit_entropy = 2*["Too few clones"]
+                        lower_limit_1D, upper_limit_1D = 2*["Too few clones"]
             # append any limits
             if 0. in qs:
                 outline_items.append(lower_limit_0D)
