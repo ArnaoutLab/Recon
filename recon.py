@@ -1164,6 +1164,8 @@ def D_number_from_parameters_with_observed4(weights, means, observed_clone_size_
         This version incorporates various speed ups over version 3.
         """
     #
+    if observed_threshold == None: observed_threshold = 30
+    #
     max_clone_size = max(observed_clone_size_distribution.keys())
     #
     fitted_distribution = mixed_distribution(zip(weights,means))
@@ -1706,13 +1708,8 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
     estimated_n0 = {}
     fitted_params = {}
     observed_clone_size_distributions = {}
-    """
-    obs0D = {}
-    obs1D = {}
-    obs2D = {}
-    obsinfD = {}
-    """
-    obsqDs = {}
+    sample_sizes = {}
+    obs_qDs = defaultdict( lambda: defaultdict(str) )
     #
     observed_threshold = None
     #
@@ -1735,9 +1732,11 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
             #
             for line in MLE_file:
                 #
-                if line[:32] == 'observed_clone_size_distribution': # This requires full clone distribution in fit file, including clones that are not explicitly fitted.
+                if line.startswith('observed_clone_size_distribution'): # This requires full clone distribution in fit file, including clones that are not explicitly fitted.
                     globals().update({line.split('=')[0].strip() : ast.literal_eval(line.split('=')[1].strip())})
                     observed_clone_size_distributions[data_filename] = deepcopy(observed_clone_size_distribution)
+                    sample_size = sum(key*value for key, value in observed_clone_size_distribution.iteritems())
+                    sample_sizes[data_filename] = sample_size
                 #
                 if line[:9] == 'threshold':
                     threshold_in_file = int(line.strip().split('=')[1])
@@ -1777,8 +1776,8 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
             fracs = [frac / norm_fracs for frac in fracs]
             #
             for q in qs:
-                if q != 'inf': obsqDs[q][data_filename] = diversity_q_fractions_zeros(fracs,q)
-                else: obsqDs[q][data_filename] = 1.0/max(fracs)
+                if q != 'inf': obs_qDs[q][data_filename] = diversity_q_fractions_zeros(fracs,q)
+                else: obs_qDs[q][data_filename] = 1.0/max(fracs)
             #
             """
             obs0D[data_filename] = diversity_q_fractions_zeros(fracs,0.)
@@ -1825,9 +1824,10 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
             #
             weights = fitted_params[filename][:len(fitted_params[filename])/2]
             means = fitted_params[filename][len(fitted_params[filename])/2:]
+            sample_size = sample_sizes[filename]
             #
             outline_items = []
-            outline_items(filename) # sample name
+            outline_items.append(filename) # sample name
             for q in qs: # observed qDs
                 outline_items.append(obs_qDs[q][filename])
                 if q == 1.: outline_items.append(log(obs_qDs[q][filename])/log(2.0)) # entropy
