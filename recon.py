@@ -1835,7 +1835,7 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_filena
                     try: 
                         lower_limit_0D, upper_limit_0D = error_bar_on_fit_qD(sample_size, reconstructed_qD, error_envelope_x_vals_0, error_envelope_y_vals_0)
                     except: 
-                        lower_limit_0D, upper_limit_0D = "Too few clones"
+                        lower_limit_0D, upper_limit_0D = 2*["Too few clones"]
                 if q == 1.:
                     try: 
                         lower_limit_entropy, upper_limit_entropy = limits_entropy(weights, means, observed_clone_size_distributions[filename], sample_size, observed_threshold)
