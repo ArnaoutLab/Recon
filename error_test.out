@@ -1,5 +1,0 @@
-# data_filenames = ['test.out']
-# observed_threshold = 30
-# precomputed_error_bar_file = error_bar_params.txt
-Sample name	obs0D	obs entropy	obs2D	obsinfD	MLE0D	MLE entropy	MLE2D	MLEinfD	Lower 0D	Upper 0D	Lower MLE entropy	Upper MLE entropy
-test.out	172.0	7.03020108842	99.6245059289	35.5	349.913750234	7.77324544352	141.207841054	83.5143739028	Too few clones	Too few clones	Too few clones	Too few clones	
