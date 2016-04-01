@@ -1863,6 +1863,9 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_file, 
 
         print infile
         # get sample_size (needed for error bars)
+        if infile not in fitted_params.keys(): 
+            print "Error: bad fit: either Recon failed to produce a good fit (check for a very small number in the fitted parameters), or else the input file was not a Recon output-format file. Skipping..."
+            continue
         weights = fitted_params[infile][:len(fitted_params[infile])/2]
         means = fitted_params[infile][len(fitted_params[infile])/2:]
         observed_clone_size_distribution = observed_clone_size_distributions[infile]
@@ -1875,6 +1878,7 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_file, 
             obs_qD = obs_qDs[infile][q]
             recon_qD = qD_from_parameters_and_observed_distribution(weights, means, observed_clone_size_distribution, observed_threshold, q)
             lower_limit, upper_limit = error_bar_on_fit_qD(sample_size, recon_qD, error_envelope_xs[q], error_envelope_ys[q])
+            lower_limit = max(lower_limit, obs_qD) # lower_limit can't be lower than the obs_qD---you actually see those
             upper_limit = 1.0164*upper_limit # (very minor) adjustment based on validation, to achieve 95% confidence internvals
             outline += [obs_qD, recon_qD, lower_limit, upper_limit]
             file_q_qD_hash[infile][q] = (obs_qD, recon_qD, lower_limit, upper_limit)
