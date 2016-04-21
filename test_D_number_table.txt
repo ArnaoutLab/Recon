@@ -1,5 +1,8 @@
-# python recon_v2.1.py -D -Q 0 1.2 inf -b error_bar_parameters.txt -o test_D_number_table.txt test_sample_1_fitfile.txt test_sample_2_fitfile.txt test_sample_3_fitfile.txt
+# python recon_v2.2.py -D -Q 0 inf -b error_bar_parameters.txt -o test_D_number_table.txt test_sample_1_fitfile.txt test_sample_2_fitfile.txt test_sample_3_fitfile.txt
 # infiles = ['test_sample_1_fitfile.txt', 'test_sample_2_fitfile.txt', 'test_sample_3_fitfile.txt']
 # observed_threshold = 30
 # precomputed_error_bar_file = error_bar_parameters.txt
-sample_name	obs_0.0D	recon_0.0D	recon_0.0D-	recon_0.0D+	obs_1.2D	recon_1.2D	recon_1.2D-	recon_1.2D+	obs_infD	recon_infD	recon_infD-	recon_infD+
+sample_name	obs_0.0D	est_0.0D	est_0.0D-	est_0.0D+	obs_infD	est_infD	est_infD-	est_infD+
+test_sample_1_fitfile.txt	2348640.0	7573260.81483	5755678.21927	inf	333547.777778	2799650.7695	1058267.99087	inf
+test_sample_2_fitfile.txt	2500.0	3013.53279032	2709.16597849	3513.2090731	527.1875	1079.19419213	570.893727639	2678.61264955
+test_sample_3_fitfile.txt	336.0	472.774165714	412.731846668	580.957943396	5.07916725676	5.08082660505	5.07916725676	inf

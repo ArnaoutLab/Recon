@@ -1635,11 +1635,9 @@ def get_minimum_cells(list_of_number_of_clones, list_of_fold_differences, error_
     minimum_cells = {}
     for fold_difference in list_of_fold_differences:
         for number_of_clones in list_of_number_of_clones:
-            # Calculate the minimum number of cells required to
-            # reliably see a fold.
+            # Calculate the minimum number of cells required to reliably see a fold.
             fold_limit = get_sample_size(number_of_clones, fold_difference, error_envelope_x_vals, error_envelope_y_vals,  number_of_error_bars)
-            # Calculate the minimum number of cells required to
-            # reliably see doublets and triplets
+            # Calculate the minimum number of cells required to reliably see doublets and triplets
             sampling_limit = get_sampling_limit(number_of_clones, min_number_of_doublets, fraction_small_clones)
             # Take the more stringent result
             minimum_cells[number_of_clones, fold_difference] = int(round(max(fold_limit, sampling_limit)))
@@ -1848,7 +1846,7 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_file, 
     file_q_qD_hash = defaultdict(lambda : defaultdict(tuple) ) # file_q_qD_hash[file] = dict[q] : (obs_qD, recon_qD, recon_qD-, recon_qD+); for return
 
     # header line
-    header_line = "sample_name\t" + "\t".join(["obs_%sD\trecon_%sD\trecon_%sD-\trecon_%sD+" % (q, q, q, q) for q in qs]) + "\n"
+    header_line = "sample_name\t" + "\t".join(["obs_%sD\test_%sD\test_%sD-\test_%sD+" % (q, q, q, q) for q in qs]) + "\n"
     if write_to_disk:
         with open(D_number_output_file, "w") as f:
             f.write("\n".join([
@@ -1878,7 +1876,7 @@ def output_table_of_D_numbers(precomputed_error_bar_file, D_number_output_file, 
             obs_qD = obs_qDs[infile][q]
             recon_qD = qD_from_parameters_and_observed_distribution(weights, means, observed_clone_size_distribution, observed_threshold, q)
             lower_limit, upper_limit = error_bar_on_fit_qD(sample_size, recon_qD, error_envelope_xs[q], error_envelope_ys[q])
-            lower_limit = max(lower_limit, obs_qD) # lower_limit can't be lower than the obs_qD---you actually see those
+            lower_limit = max(lower_limit, obs_qD) # lower_limit can't be lower than the obs_qD
             upper_limit = 1.0164*upper_limit # (very minor) adjustment based on validation, to achieve 95% confidence internvals
             outline += [obs_qD, recon_qD, lower_limit, upper_limit]
             file_q_qD_hash[infile][q] = (obs_qD, recon_qD, lower_limit, upper_limit)
@@ -2110,15 +2108,15 @@ elif make_error_bars:
     print "making error-bar file..."
     print make_error_bar_file(file_in, file_out, qs)
 
+elif make_table_of_D_numbers:
+    print "making table of D numbers..."
+    output_table_of_D_numbers(precomputed_error_bar_file, file_out, list_of_filenames, qs)
+
 elif make_power_table:
     print "making power table..."
     error_envelope_x_vals, error_envelope_y_vals = read_error_bar_file(file_in, q)
     minimum_cells = get_minimum_cells(list_of_number_of_clones, list_of_fold_differences, error_envelope_x_vals, error_envelope_y_vals, number_of_error_bars, min_number_of_doublets, fraction_small_clones)
     output_table(list_of_number_of_clones, list_of_fold_differences, file_out, number_of_error_bars, min_number_of_doublets, fraction_small_clones, minimum_cells, q, file_out)
-
-elif make_table_of_D_numbers:
-    print "making table of D numbers..."
-    output_table_of_D_numbers(precomputed_error_bar_file, file_out, list_of_filenames, qs)
 
 elif resample:
     print "resampling..."
