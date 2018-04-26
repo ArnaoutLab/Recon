@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  }
+    
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  }
+
+circle {
+  stroke: #000;
+  fill: #fff;
+  }
+		
+.cross {
+  fill: red;
+  }
