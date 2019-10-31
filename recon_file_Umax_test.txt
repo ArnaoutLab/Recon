@@ -1,0 +1,85 @@
+# This data is irrelevant except for the fitted parameters below, which are taken
+# from the example on page 18 of supplementary information from Kaplinsky and Arnaout Nat Comm 2016: https://static-content.springer.com/esm/art%3A10.1038%2Fncomms11881/MediaObjects/41467_2016_BFncomms11881_MOESM1711_ESM.pdf
+#
+# Thu Oct 31 11:56:14 2019
+# python recon_v2.4.py -R -t 30 -l 50 -o real_repertoire_100_1_0.55_recon_out_1.txt real_repertoire_100_1.txt
+observed_clone_size_distribution = {1: 100}
+total_clones = None
+weights = 0.
+means = 0.
+initial_scale_factors = [0.05, 0.225, 0.4, 0.575, 0.75, 0.925, 1.1]
+test_weights_list = [0.05, 0.12857143, 0.20714286, 0.28571429, 0.36428571, 0.44285714, 0.52142857, 0.6]
+
+initial parameters = [1.0, 0.05]
+n_obs 100.0
+weights = [1.0]
+means = [0.04878048368927264]
+log likelihood = -2.44893871949
+estimated_n0 = 2000.0
+
+initial parameters = [1.0, 0.225]
+n_obs 100.0
+weights = [1.0]
+means = [0.16666665974111514]
+log likelihood = -8.44904693815
+estimated_n0 = 551.0
+
+initial parameters = [1.0, 0.4]
+n_obs 100.0
+weights = [1.0]
+means = [0.1626016229569764]
+log likelihood = -8.24022058507
+estimated_n0 = 566.0
+
+initial parameters = [1.0, 0.575]
+n_obs 100.0
+weights = [1.0]
+means = [0.1677852307777071]
+log likelihood = -8.5065335481
+estimated_n0 = 547.0
+
+initial parameters = [1.0, 0.75]
+n_obs 100.0
+weights = [1.0]
+means = [0.16420360888719376]
+log likelihood = -8.32250031719
+estimated_n0 = 560.0
+
+initial parameters = [1.0, 0.925]
+n_obs 100.0
+weights = [1.0]
+means = [0.1697792803553231]
+log likelihood = -8.60903936442
+estimated_n0 = 540.0
+
+initial parameters = [1.0, 1.1]
+n_obs 100.0
+weights = [1.0]
+means = [0.15999999326512226]
+log likelihood = -8.10664357463
+estimated_n0 = 576.0
+
+initial parameters = [1.0, 0.025]
+n_obs 100.0
+weights = [1.0]
+means = [0.024691353178558768]
+log likelihood = -1.2371079082
+estimated_n0 = 4000.0
+
+initial parameters = [1.0, 0.025]
+n_obs 100.0
+weights = [1.0]
+means = [0.024691353178558768]
+log likelihood = -1.2371079082
+estimated_n0 = 4000.0
+
+
+===========================================
+initial parameters = [1.0, 0.025]
+fitted parameters = [1.0, 0.001]
+estimated n0 = 4000.0
+AIC = 4.47421581639
+AICc = inf
+log likelihood = -1.2371079082
+===========================================
+

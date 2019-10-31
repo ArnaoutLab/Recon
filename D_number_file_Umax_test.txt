@@ -1,0 +1,7 @@
+# python recon_v2.4.py -D -Q 0.0 1.0 -b error_bar_parameters.txt -o real_repertoire_100_1_0.55_recon_out_2.txt real_repertoire_100_1_0.55_recon_out_1.txt
+# infiles = ['real_repertoire_100_1_0.55_recon_out_1.txt']
+# observed_threshold = 30
+# precomputed_error_bar_file = error_bar_parameters.txt
+sample_name	obs_0.0D	est_0.0D	est_0.0D-	est_0.0D+	obs_1.0D	est_1.0D	est_1.0D-	est_1.0D+
+recon_test.txt	100.0	4100.20655407	926.64668122	1000000000	100.0	4100.20655407	2730.73756501	9155.88752161
+recon_test_2.txt	100.0	4100.20655407	926.64668122	20863729.	100.0	4100.20655407	2730.73756501	9155.88752161
