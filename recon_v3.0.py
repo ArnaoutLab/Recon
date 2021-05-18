@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/n/data2/bidmc/path/arnaout/Jasper/Morty_venv_051021JB/bin/python3
 # -*- coding: utf-8 -*-
 
 from argparse import ArgumentParser, REMAINDER, RawDescriptionHelpFormatter
@@ -791,7 +791,9 @@ initial_scale_factors = list(map(float, initial_scale_factors))
 test_weights_list = list(map(float, test_weights_list))
 qs = list(map(float, qs))
 
-warnings.filterwarnings('error') # This makes RunTime warnings (e.g. divide by zero) raise an error
+#051721JB
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+#warnings.filterwarnings('error') # This makes RunTime warnings (e.g. divide by zero) raise an error
 
 # Handle file/directory names
 
