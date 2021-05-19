@@ -1,4 +1,4 @@
-#!/n/data2/bidmc/path/arnaout/Jasper/Morty_venv_051021JB/bin/python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from argparse import ArgumentParser, REMAINDER, RawDescriptionHelpFormatter
