@@ -1,0 +1,3 @@
+include README.md
+include versioneer.py
+include Recon/_version.py
