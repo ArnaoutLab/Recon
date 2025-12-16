@@ -11,7 +11,7 @@ from math import isnan, log, ceil, floor, exp, factorial
 from numpy import sqrt, array, interp, mean, arange
 from os.path import expanduser, isfile, isdir, dirname, abspath, exists, isabs
 from os import listdir, system, getcwd
-from scipy.optimize.lbfgsb import _minimize_lbfgsb as minimize
+from scipy.optimize import minimize #.lbfgsb import _minimize_lbfgsb as minimize
 from sys import argv, exit, stdout
 from time import time
 from traceback import print_exc
@@ -22,6 +22,11 @@ from collections import Counter
 
 """
 Changelog
+
+2022/12/07 JB:
+- scipy.optimize.lbfgsb._minimize_lbfgsb seems deprecated in newer scipy version,
+  so changed to its equivalent in the newest version
+  (scipy.optimize.minimize with method="L-BFGS-B")
 
 v3.0:
 --made the code compatible with python3
@@ -1021,7 +1026,8 @@ def MLE_fit_v2(file_out, threshold, new_weights, new_means, observed_clone_size_
         try:
             res = minimize(log_likelihood_score, # "L-BFGS-B"; no bounds or callback
                            start_params, 
-                           args=(estimated_clone_size_distribution,))
+                           args=(estimated_clone_size_distribution,),
+                           method="L-BFGS-B",)
             # double check
             # new_weights = list(res.x[:len(res.x)/2])
             new_weights = list(res.x[:int(len(res.x)/2)])
